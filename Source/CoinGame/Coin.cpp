@@ -2,7 +2,6 @@
 
 
 #include "Coin.h"
-#include "Components/StaticMeshComponent.h"
 #include "Engine/Engine.h"
 
 // Sets default values
@@ -10,12 +9,6 @@ ACoin::ACoin()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	RootComponent = Root;
-
-	CoinMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CoinMesh"));
-	CoinMesh->SetupAttachment(Root);
 }
 
 // Called when the game starts or when spawned

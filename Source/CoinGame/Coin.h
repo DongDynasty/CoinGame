@@ -3,14 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "PickupBase.h"
 #include "Coin.generated.h"
 
-class UStaticMeshComponent;
-class USceneComponent;
-
 UCLASS()
-class COINGAME_API ACoin : public AActor
+class COINGAME_API ACoin : public APickupBase
 {
 	GENERATED_BODY()
 	
@@ -27,12 +24,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	UPROPERTY(VisibleAnywhere, Category = "Coin")
-	UStaticMeshComponent* CoinMesh;
-
-	UPROPERTY(VisibleAnywhere, Category = "Coin")
-	USceneComponent* Root;
-
 	UPROPERTY(EditAnywhere, Category = "Coin")
 	float RotationSpeed = 90.f;
 
