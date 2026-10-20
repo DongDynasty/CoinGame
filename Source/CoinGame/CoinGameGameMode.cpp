@@ -1,8 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "CoinGameGameMode.h"
+#include "CoinPlayerState.h"
 
 ACoinGameGameMode::ACoinGameGameMode()
 {
-	// stub
+	PlayerStateClass = ACoinPlayerState::StaticClass();
 }
