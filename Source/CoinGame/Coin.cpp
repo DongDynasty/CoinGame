@@ -3,6 +3,8 @@
 
 #include "Coin.h"
 #include "Engine/Engine.h"
+#include "GameFramework/Character.h"
+#include "CoinPlayerState.h"
 
 // Sets default values
 ACoin::ACoin()
@@ -33,4 +35,19 @@ void ACoin::Tick(float DeltaTime)
 
 	AddActorLocalRotation(FRotator(0.f, RotationSpeed * DeltaTime, 0.f));
 	SetActorLocation(StartLocation + FVector(0.f, 0.f, FMath::Sin(GetGameTimeSinceCreation()) * BobHeight));
+}
+
+void ACoin::OnCollected(ACharacter* Collector) {
+
+	Super::OnCollected(Collector);
+
+	if (Collector) {
+		
+		//get the player state of the collector
+		if (ACoinPlayerState *CurrentPlayerState = Collector->GetPlayerState<ACoinPlayerState>()) {
+
+			//add value to the player's coin count
+			CurrentPlayerState->AddScore(CoinValue);
+		}
+	}
 }
