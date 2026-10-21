@@ -8,6 +8,7 @@
 
 class UInputMappingContext;
 class UUserWidget;
+class UScoreWidget;
 
 /**
  *  Basic PlayerController class for a third person game
@@ -49,4 +50,9 @@ protected:
 	/** Returns true if the player should use UMG touch controls */
 	bool ShouldUseTouchControls() const;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
+	TSubclassOf<UScoreWidget> ScoreWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UScoreWidget> ScoreWidget;
 };

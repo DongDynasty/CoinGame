@@ -8,6 +8,8 @@
 #include "Blueprint/UserWidget.h"
 #include "CoinGame.h"
 #include "Widgets/Input/SVirtualJoystick.h"
+#include "ScoreWidget.h"
+#include "CoinPlayerState.h"
 
 void ACoinGamePlayerController::BeginPlay()
 {
@@ -29,7 +31,30 @@ void ACoinGamePlayerController::BeginPlay()
 			UE_LOG(LogCoinGame, Error, TEXT("Could not spawn mobile controls widget."));
 
 		}
+	}
 
+	if (IsLocalPlayerController()) {
+
+		ScoreWidget = CreateWidget<UScoreWidget>(this, ScoreWidgetClass);
+
+		if (ScoreWidget)
+		{
+			ScoreWidget->AddToPlayerScreen(0);
+
+			//bind the score widget to the player state
+			if (ACoinPlayerState* CoinPlayerState = GetPlayerState<ACoinPlayerState>()) {
+
+				CoinPlayerState->OnScoreChanged.AddUniqueDynamic(ScoreWidget, &UScoreWidget::UpdateScore);
+				ScoreWidget->UpdateScore(CoinPlayerState->GetPlayerScore());
+			}
+
+		}
+		else {
+			UE_LOG(LogCoinGame, Error, TEXT("Could not spawn score widget."));
+		}
+	}
+	else {
+		UE_LOG(LogCoinGame, Error, TEXT("Score widget can only be spawned on local player controllers."));
 	}
 }
 
